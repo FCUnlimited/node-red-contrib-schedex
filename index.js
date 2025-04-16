@@ -347,6 +347,11 @@ module.exports = function (RED) {
                             payload: isOff ? events.off.payload : events.on.payload,
                         });
                     }
+                } else if (msg.payload === 'send_last') {
+                    handled = true;
+                    if (!isSuspended()) {
+                        send(lastEvent, true);
+                    }
                 } else if (msg.payload === 'info' || msg.payload === 'info_local') {
                     handled = true;
                     const payload = _.pick(config, Object.keys(configuration));
